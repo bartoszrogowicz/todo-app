@@ -1,0 +1,4 @@
+id;login;password_hash;first_name;last_name
+1;user_all;$2a$10$aVsl9/RUl.9ScezqzMaJdukQ4hfVfTIXu2TdYwNPCWiqZ0Bq5ZNuS;Aaliya;Kirby
+2;user_add;$2a$10$aVsl9/RUl.9ScezqzMaJdukQ4hfVfTIXu2TdYwNPCWiqZ0Bq5ZNuS;Terrence;Lugo
+3;user_get;$2a$10$aVsl9/RUl.9ScezqzMaJdukQ4hfVfTIXu2TdYwNPCWiqZ0Bq5ZNuS;Laurel;Delarosa

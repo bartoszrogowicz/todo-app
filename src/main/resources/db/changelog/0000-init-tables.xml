@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="bartosz">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password_hash" type="varchar(60)">
+
+            </column>
+
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+        </createTable>
+
+        <createTable tableName="permission">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_permission">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="todo">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_id, permission_name" tableName="user_permission"/>
+
+        <addForeignKeyConstraint baseColumnNames="permission_name"
+                                 baseTableName="user_permission"
+                                 constraintName="perm_name"
+                                 referencedColumnNames="name"
+                                 referencedTableName="permission"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_permission"
+                                 constraintName="user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
+        <addNotNullConstraint   columnName="password_hash"
+                                columnDataType="varchar(60)"
+                                tableName="user"/>
+
+        <loadData
+                file="db/data/user.csv"
+                separator=";"
+                tableName="user">
+        </loadData>
+
+        <loadData
+                file="db/data/permission.csv"
+                separator=";"
+                tableName="permission"/>
+
+        <loadData
+                file="db/data/todo.csv"
+                separator=";"
+                tableName="todo"/>
+
+        <loadData
+                file="db/data/user_permission.csv"
+                separator=";"
+                tableName="user_permission"/>
+    </changeSet>
+
+</databaseChangeLog>
